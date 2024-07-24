@@ -41,6 +41,8 @@ public class JpaApplication {
             System.out.println(student3);
         }
 
-
+        context.getEntityManager().close();
+        context.getEntityManagerFactory().close();
+        System.out.println("End!");
     }
 }
