@@ -4,14 +4,6 @@ import entity.Teacher;
 
 import java.util.List;
 
-public interface TeacherRepository<T extends Teacher> {
-    void save(T teacher);
+public interface TeacherRepository<T extends Teacher> extends PersonRepository<T>{
 
-    void delete(T teacher);
-
-    void update(T teacher);
-
-    T findById(Long id);
-
-    List<T> findAll();
 }

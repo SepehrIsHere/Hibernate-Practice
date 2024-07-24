@@ -4,68 +4,43 @@ import entity.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import repository.PersonRepository;
-import util.ApplicationContext;
 
 import java.util.List;
 
-public class PersonRepositoryImpl implements PersonRepository<Person> {
-    private EntityManager em;
-    private EntityTransaction transaction;
-
-    public PersonRepositoryImpl(EntityManager em, EntityTransaction transaction) {
+public class PersonRepositoryImpl<T extends Person> implements PersonRepository<T> {
+    protected final EntityManager em;
+    public PersonRepositoryImpl(EntityManager em) {
         this.em = em;
-        this.transaction = transaction;
     }
 
     @Override
     public void save(Person person) {
-        try {
-            transaction.begin();
-            em.persist(person);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            System.out.println("Exception in saving from PersonRepository" + e.getMessage());
-        }
+        em.getTransaction().begin();
+        em.persist(person);
+        em.getTransaction().commit();
     }
 
     @Override
     public void delete(Person person) {
-        try {
-            transaction.begin();
-            em.remove(person);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            System.out.println("Exception in deleting from PersonRepository" + e.getMessage());
-        }
+        em.getTransaction().begin();
+        em.remove(em.contains(person) ? person : em.merge(person));
+        em.getTransaction().commit();
     }
 
     @Override
     public void update(Person person) {
-        try {
-            transaction.begin();
-            em.merge(person);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            System.out.println("Exception in updating from PersonRepository" + e.getMessage());
-        }
+        em.getTransaction().begin();
+        em.merge(person);
+        em.getTransaction().commit();
     }
 
     @Override
-    public Person findById(Long id) {
-        return em.find(Person.class, id);
+    public T findById(Long id) {
+        return em.find((Class <T>)Person.class, id);
     }
 
     @Override
-    public List<Person> findAll() {
-        return em.createQuery("from Person",Person.class).getResultList();
+    public List<T> findAll() {
+        return em.createQuery("from Person", (Class<T>) Person.class).getResultList();
     }
 }
