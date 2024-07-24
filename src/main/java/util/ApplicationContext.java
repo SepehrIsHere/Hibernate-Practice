@@ -28,7 +28,7 @@ public class ApplicationContext {
     private final TeacherRepository<Teacher> teacherRepository;
 
     private ApplicationContext() {
-        emf = Persistence.createEntityManagerFactory("person");
+        emf = Persistence.createEntityManagerFactory("default");
         em = emf.createEntityManager();
         personRepository = new PersonRepositoryImpl<>(em);
         studentRepository = new StudentRepositoryImpl(em);

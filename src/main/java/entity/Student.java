@@ -11,7 +11,6 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = Student.TABLE_NAME)
 public class Student extends Person {
     public static final String TABLE_NAME = "student";
     public static final String MAJOR = "major";
@@ -27,8 +26,9 @@ public class Student extends Person {
     @Column(name = ENTER_YEAR)
     private int enterYear;
 
-    public Student(String firstName, String lastName, Date birthDate, String major, int enterYear) {
+    public Student(String studentId,String firstName, String lastName, Date birthDate, String major, int enterYear) {
         super(firstName, lastName, birthDate);
+        this.studentId = studentId;
         this.major = major;
         this.enterYear = enterYear;
     }
