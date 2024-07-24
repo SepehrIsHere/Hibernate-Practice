@@ -2,7 +2,6 @@ package repository.impl;
 
 import entity.Teacher;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import repository.TeacherRepository;
 
 import java.util.List;
