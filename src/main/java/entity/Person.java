@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = Person.TABLE_NAME)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
     public static final String TABLE_NAME = "person";
     public static final String FIRST_NAME = "firstName";

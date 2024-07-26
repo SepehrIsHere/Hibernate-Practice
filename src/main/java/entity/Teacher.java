@@ -12,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 @Entity
+@DiscriminatorValue("Teacher")
 public class Teacher extends Person {
     public static final String TABLE_NAME = "teacher";
     public static final String TEACHER_ID = "teacher_id";

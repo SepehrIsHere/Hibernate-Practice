@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 @Entity
+@DiscriminatorValue("Student")
 public class Student extends Person {
     public static final String TABLE_NAME = "student";
     public static final String MAJOR = "major";
@@ -32,4 +33,5 @@ public class Student extends Person {
         this.major = major;
         this.enterYear = enterYear;
     }
+
 }
